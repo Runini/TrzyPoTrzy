@@ -9,81 +9,87 @@ public class BonusGra extends TrzyPoTrzy{
 	
 	public BonusGra() {}
 	
-	public void tura() {
-		System.out.println("\t\t\t\t\tTrwa Tura - "+b);
-		b++;
+	public void printTurn() {
+		System.out.println("\t\t\t\t\tActually Turn - "+turn);
+		turn++;
 	}
 	
-	public void aktualnyWynik() {
+	public void printScore() {
 		System.out.println(ANSI_YELLOW+ANSI_PURPLE_BACKGROUND);
-		System.out.println("Gracz 1: "+pkt1+" pkt.\t\t\t\t\t\t\t Gracz 2: "+pkt2+" pkt");
+		System.out.println("Player 1: "+pkt1+" pkt.\t\t\t\t\t\t\t Player 2: "+pkt2+" pkt");
 	}
 	
-	public void bonusMapa() throws InterruptedException {
+	public void bonusMap() throws InterruptedException {
 		System.out.println(ANSI_YELLOW+ANSI_PURPLE_BACKGROUND);
-		Random losuj = new Random();
+		Random rand = new Random();
 		while(pkt1 < 5 && pkt2 < 5){
-			if (figura.equals("Stop")) {
+			if (figure1.equals("Stop")) {
 				break;
 			}
 			Thread.sleep(1000);
-			System.out.print("Trzy ");
+			System.out.print("Three ");
 				Thread.sleep(700);
-			System.out.print("Po ");
+			System.out.print("by ");
 				Thread.sleep(700);
-			System.out.println("Trzy ");
-			a = losuj.nextInt(3);
-			a++;
-			if (a == 1) 
-				figura2 = "Papier";
-			if (a == 2)
-				figura2 = "Nozyce";
-			if (a ==3)
-				figura2 = "Kamien";
+			System.out.println("Three ");
+			botFigure = rand.nextInt(3);
+			botFigure++;
+			
+			if (botFigure == 1) 
+				figure2 = "paper";
+			if (botFigure == 2)
+				figure2 = "scissors";
+			if (botFigure ==3)
+				figure2 = "stone";
+			
 			Thread.sleep(700);
-			System.out.println("Przeciwnik wybral: "+figura2);
+			System.out.println("Enemy choose: "+figure2);
 			Thread.sleep(700);
-			if (figura.equals("Pistolet")) {
-				int naboj;
-				System.out.print("Przeladowanie ");
-				Thread.sleep(600);
-				System.out.print("i ");
-				Thread.sleep(600);
-				System.out.print("Strzal ");
-				Thread.sleep(600);
-				naboj = losuj.nextInt(101);
-				if (naboj <= 50) {
-					System.out.println("Trafiony Zatopiony, zdobywasz pkt");
+			if (figure1.equals("pistol")) {
+				int bullet;
+				System.out.print("Reloading ");
+					Thread.sleep(600);
+				System.out.print("and ");
+					Thread.sleep(600);
+				System.out.print("Shoot! ");
+					Thread.sleep(600);
+					
+				bullet = rand.nextInt(101);
+				if (bullet <= 50) {
+					System.out.println("Hit ,point win");
 					pkt1++;
 					Thread.sleep(1500);
 					break;
 				}
 				else {
-					System.out.println("Pudlo, tracisz pkt");
+					System.out.println("Miss, point lose");
 					if (pkt1 != 0) {
 					pkt1--;
 					pkt2++;
 					Thread.sleep(1500);
 					break;
-					}else
+					}else {
+						System.out.println("You are 0 points, don't losing point");
+						Thread.sleep(1500);
+					}
 					break;
 				}				
 			}
 			
-			if(figura.equals("Papier") && figura2.equals("Kamien")) {
+			if(figure1.equals("paper") && figure2.equals("stone")) {
 				pkt1++;
-				System.out.println("Wygrywasz Papierem! Wynik : "+pkt1+" : "+pkt2);
+				System.out.println("You Paper Win! Score : "+pkt1+" : "+pkt2);
 				Thread.sleep(1700);
 				break;
 			}
-			if(figura.equals("Papier") && figura2.equals("Papier")) {
-				System.out.println("TAKIE SAME FIGURY");
+			if((figure1.equals("paper") && figure2.equals("paper")) || (figure1.equals("stone") && figure2.equals("stone")) || (figure1.equals("scissors") && figure2.equals("scissors"))) {
+				System.out.println("The same figures!");
 				Thread.sleep(700);
-				System.out.println("Wynik : "+pkt1+" : "+pkt2);
+				System.out.println("Score : "+pkt1+" : "+pkt2);
 				Thread.sleep(1700);
 				break;
 				}
-			if(figura.equals("Kamien") && figura2.equals("Kamien")) {
+			/* if(figura.equals("Kamien") && figura2.equals("Kamien")) {
 				System.out.println("TAKIE SAME FIGURY");
 				Thread.sleep(700);
 				System.out.println("Wynik : "+pkt1+" : "+pkt2);
@@ -96,65 +102,62 @@ public class BonusGra extends TrzyPoTrzy{
 				System.out.println("Wynik : "+pkt1+" : "+pkt2);
 				Thread.sleep(1700);	
 				break;
-				}
-			if(figura.equals("Papier") && figura2.equals("Nozyce")) {
+				}*/
+			if(figure1.equals("paper") && figure2.equals("scissors")) {
 				pkt2++;
-				System.out.println("Przegrywasz Papierem! Wynik : "+pkt1+" : "+pkt2);
+				System.out.println("You Paper Lose! Score : "+pkt1+" : "+pkt2);
 				Thread.sleep(1700);
 				break;
 				}
-			if(figura.equals("Kamien") && figura2.equals("Nozyce")) {
+			if(figure1.equals("stone") && figure2.equals("scissors")) {
 				pkt1++;
-				System.out.println("Wygrywasz Kamieniem! Wynik : "+pkt1+" : "+pkt2);
+				System.out.println("You Stone Win! Score : "+pkt1+" : "+pkt2);
 				Thread.sleep(1700);
 				break;
 				}
-			if(figura.equals("Kamien") && figura2.equals("Papier")) {
+			if(figure1.equals("stone") && figure2.equals("paper")) {
 				pkt2++;
-				System.out.println("Przegrywasz Kamieniem! Wynik : "+pkt1+" : "+pkt2);
+				System.out.println("You Stone Lose! Score : "+pkt1+" : "+pkt2);
 				Thread.sleep(1700);
 				break;
 				}
-			if(figura.equals("Nozyce") && figura2.equals("Papier")) {
+			if(figure1.equals("scissors") && figure2.equals("paper")) {
 				pkt1++;
-				System.out.println("Wygrywasz Nozycami! Wynik : "+pkt1+" : "+pkt2 );
+				System.out.println("You Scissors Win! Score : "+pkt1+" : "+pkt2 );
 				Thread.sleep(1700);
 				break;
 				}
-			if(figura.equals("Nozyce") && figura2.equals("Kamien")) {
+			if(figure1.equals("scissors") && figure2.equals("stone")) {
 				pkt2++;
-				System.out.println("Przegrywasz Nozycami! Wynik : "+pkt1+" : "+pkt2);
+				System.out.println("You Scissors Lose! Score : "+pkt1+" : "+pkt2);
 				Thread.sleep(1700);
 				break;
 			}
 			
 	}	
 }
-	public void podajFigure() throws InterruptedException {
+	public void readFigure() throws InterruptedException {
 		System.out.println(ANSI_YELLOW+ANSI_PURPLE_BACKGROUND);
 		do {
 		System.out.println(ANSI_YELLOW+ANSI_PURPLE_BACKGROUND);
-		System.out.println("Wybierz 1 z 3 figur: Nozyce / Papier / Kamien");
-		System.out.println("Mozesz rowniez wybrac Pistolet");
-		System.out.println("Daje on 50% szansy na zdobycie pkt, ale jak nie trafisz, to tracisz pkt");
+		System.out.println("You can choice 1 of 3 figures: scissors / paper / stone");
+		System.out.println("You can choice pistol as well");
+		System.out.println("It gives 50% of chance for gathering points, but if you'd be wrong then you lose point");
 		Thread.sleep(800);
-		figura = podaj.nextLine();
-		//podaj.close();
-		//Thread.sleep(300);
-		//System.out.println("Podales: "+figura);
-		if(!figura.equals("Papier") && !figura.equals("Kamien")&&
-				!figura.equals("Nozyce")&& !figura.equals("Pistolet")){
-			if(figura.equals("Stop")) {
+		figure1 = read.nextLine();
+		if(!figure1.equals("paper") && !figure1.equals("stone")&&
+				!figure1.equals("scissors")&& !figure1.equals("pistol")){
+			if(figure1.equals("Stop")) {
 				break;
 			}
-			System.out.println(ANSI_RED+"Bledna Nazwa, Podaj jeszcze raz: "+ANSI_RESET);
+			System.out.println(ANSI_RED+"Wrong name, Try again: "+ANSI_RESET);
 			continue;
 		}
 		Thread.sleep(600);
-		System.out.println("Twoja figura to: "+figura);
+		System.out.println("You'r figure this: "+figure1);
 		}
-		while (!figura.equals("Papier") && !figura.equals("Kamien")&&
-				!figura.equals("Nozyce") && !figura.equals("Pistolet"));
+		while (!figure1.equals("paper") && !figure1.equals("stone")&&
+				!figure1.equals("scissors") && !figure1.equals("pistol"));
 		
 	}
 	}

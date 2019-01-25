@@ -15,98 +15,98 @@ public class TrzyPoTrzy {
 	public static final String ANSI_CYAN = "\u001B[36m";
 	public static final String ANSI_WHITE = "\u001B[37m";
 	
-	String figura;
-	String figura2;
-	public int pkt1 = 0;
-	public int pkt2 = 0;
-	int a;
-	int b = 1;  //licznik tury
-	int wygrana = 0; 
-	int achi = 0; //licznik osiagniec
-	String winner;
-	String kod;
-	String bonus = "PINK"; //kod bonusowy
-	Boolean bon = false;
+	String figure1; // player 1 figure
+	String figure2; // bot figure
+	public int pkt1 = 0; //player one points
+	public int pkt2 = 0; // bot points
+	int botFigure; //bot figure choose
+	int turn = 1;  //wins counter
+	int win = 0;   // number of wins
+	int achi = 0; //achievment number
+	String winner; //see winner
+	String code;  // read code to check
+	String bonus = "PINK"; //bonus code
+	Boolean checkBonus = false; //if bonus code is agree, checkBonus will change to true
 	
-	Scanner podaj = new Scanner(System.in);
+	Scanner read = new Scanner(System.in);
 	public TrzyPoTrzy() {
 		
 	}
-	public String pokazFigura(){
-		return figura;
+	public String seeFigure(){
+		return figure1;
 	}
-	public void tura() {
-		System.out.println(ANSI_YELLOW+"\t\t\t\t\tTrwa Tura - "+ANSI_RESET+ANSI_CYAN+b+ANSI_RESET);
-		b++;
+	public void printTurn() { //print actually round
+		System.out.println(ANSI_YELLOW+"\t\t\t\t\tActually Round: - "+ANSI_RESET+ANSI_CYAN+turn+ANSI_RESET);
+		turn++;
 	}
-	public void aktualnyWynik() {
+	public void printScore() {  //print actually score
 		
-		System.out.println(ANSI_GREEN+"Gracz 1: "+pkt1+" pkt."+ANSI_RESET+ANSI_RED+"\t\t\t\t\t\t\t Gracz 2: "+pkt2+" pkt"+ANSI_RESET);
+		System.out.println(ANSI_GREEN+"Player 1: "+pkt1+" pkt."+ANSI_RESET+ANSI_RED+"\t\t\t\t\t\t\t Player 2: "+pkt2+" pkt"+ANSI_RESET);
 		
 	}
-	public void podajFigure() throws InterruptedException {
+	public void readFigure() throws InterruptedException {  //funkcja pobieraja figure od gracza
 		
 		do {
-		System.out.println("Wybierz 1 z 3 figur: Nozyce / Papier / Kamien");
+		System.out.println("You can choice 1 of 3 figures: scissors / paper / stone");
 		Thread.sleep(800);
-		figura = podaj.nextLine();
+		figure1 = read.nextLine();
 		//podaj.close();
 		//Thread.sleep(300);
-		//System.out.println("Podales: "+figura);
-		if(!figura.equals("Papier") && !figura.equals("Kamien")&&
-				!figura.equals("Nozyce")){
-			if(figura.equals("Stop")) {
+		//System.out.println("Podales: "+figure1);
+		if(!figure1.equals("paper") && !figure1.equals("stone")&&
+				!figure1.equals("scissors")){
+			if(figure1.equals("Stop")) {
 				break;
 			}
-			System.out.println(ANSI_RED+"Bledna Nazwa, Podaj jeszcze raz: "+ANSI_RESET);
+			System.out.println(ANSI_RED+"Wrong name, Try again: "+ANSI_RESET);
 			continue;
 		}
 		Thread.sleep(600);
-		System.out.println("Twoja figura to: "+ANSI_CYAN+figura+ANSI_RESET);
+		System.out.println("Your figure this: "+ANSI_CYAN+figure1+ANSI_RESET);
 		}
-		while (!figura.equals("Papier") && !figura.equals("Kamien")&&
-				!figura.equals("Nozyce"));
+		while (!figure1.equals("paper") && !figure1.equals("stone")&&
+				!figure1.equals("scissors"));
 		
 	}
 	
-	public void Graj() throws InterruptedException {
+	public void game() throws InterruptedException {  // game function
 		Random losuj = new Random();
-		while(pkt1 < 3 && pkt2 < 3){
-			if (figura.equals("Stop")) {
+		while(pkt1 < 3 && pkt2 < 3){ //we can play to 3 points on one player
+			if (figure1.equals("Stop")) {
 				break;
 			}
 			Thread.sleep(1000);
-			System.out.print("Trzy ");
+			System.out.print("Three ");
 				Thread.sleep(700);
-			System.out.print("Po ");
+			System.out.print("by ");
 				Thread.sleep(700);
-			System.out.println("Trzy ");
-			a = losuj.nextInt(3);
-			a++;
-			if (a == 1) 
-				figura2 = "Papier";
-			if (a == 2)
-				figura2 = "Nozyce";
-			if (a ==3)
-				figura2 = "Kamien";
+			System.out.println("Three ");
+			botFigure = losuj.nextInt(3); //random bot figure
+			botFigure++;
+			if (botFigure == 1) 
+				figure2 = "paper";
+			if (botFigure == 2)
+				figure2 = "scissors";
+			if (botFigure ==3)
+				figure2 = "stone";
 			Thread.sleep(700);
-			System.out.println("Przeciwnik wybral: "+ANSI_PURPLE+figura2+ANSI_RESET);
+			System.out.println("Enemy choose: "+ANSI_PURPLE+figure2+ANSI_RESET);
 			Thread.sleep(700);
 			
-			if(figura.equals("Papier") && figura2.equals("Kamien")) {
+			if(figure1.equals("paper") && figure2.equals("stone")) {
 				pkt1++;
-				System.out.println(ANSI_GREEN+"Wygrywasz Papierem! "+ANSI_RESET+"Wynik : "+pkt1+" : "+pkt2);
+				System.out.println(ANSI_GREEN+"You Paper Win! "+ANSI_RESET+"Score : "+pkt1+" : "+pkt2);
 				Thread.sleep(1700);
 				break;
 			}
-			if(figura.equals("Papier") && figura2.equals("Papier")) {
-				System.out.println(ANSI_BLUE+"TAKIE SAME FIGURY"+ANSI_RESET);
+			if((figure1.equals("paper") && figure2.equals("paper")) || (figure1.equals("stone") && figure2.equals("stone")) || (figure1.equals("scissors") && figure2.equals("scissors"))) {
+				System.out.println(ANSI_BLUE+"The same figures!"+ANSI_RESET);
 				Thread.sleep(700);
-				System.out.println("Wynik : "+pkt1+" : "+pkt2);
+				System.out.println("Score : "+pkt1+" : "+pkt2);
 				Thread.sleep(1700);
 				break;
 				}
-			if(figura.equals("Kamien") && figura2.equals("Kamien")) {
+			/*if(figura.equals("Kamien") && figura2.equals("Kamien")) {
 				System.out.println(ANSI_BLUE+"TAKIE SAME FIGURY"+ANSI_RESET);
 				Thread.sleep(700);
 				System.out.println("Wynik : "+pkt1+" : "+pkt2);
@@ -119,73 +119,73 @@ public class TrzyPoTrzy {
 				System.out.println("Wynik : "+pkt1+" : "+pkt2);
 				Thread.sleep(1700);	
 				break;
-				}
-			if(figura.equals("Papier") && figura2.equals("Nozyce")) {
+				}*/
+			if(figure1.equals("paper") && figure2.equals("scissors")) {
 				pkt2++;
-				System.out.println(ANSI_RED+"Przegrywasz Papierem!"+ANSI_RESET+" Wynik : "+pkt1+" : "+pkt2);
+				System.out.println(ANSI_RED+"You Paper Lose!"+ANSI_RESET+" Score : "+pkt1+" : "+pkt2);
 				Thread.sleep(1700);
 				break;
 				}
-			if(figura.equals("Kamien") && figura2.equals("Nozyce")) {
+			if(figure1.equals("stone") && figure2.equals("scissors")) {
 				pkt1++;
-				System.out.println(ANSI_GREEN+"Wygrywasz Kamieniem!"+ANSI_RESET+" Wynik : "+pkt1+" : "+pkt2);
+				System.out.println(ANSI_GREEN+"You Stone Win!"+ANSI_RESET+" Score : "+pkt1+" : "+pkt2);
 				Thread.sleep(1700);
 				break;
 				}
-			if(figura.equals("Kamien") && figura2.equals("Papier")) {
+			if(figure1.equals("stone") && figure2.equals("paper")) {
 				pkt2++;
-				System.out.println(ANSI_RED+"Przegrywasz Kamieniem!"+ANSI_RESET+" Wynik : "+pkt1+" : "+pkt2);
+				System.out.println(ANSI_RED+"You Stone Lose!"+ANSI_RESET+" Score : "+pkt1+" : "+pkt2);
 				Thread.sleep(1700);
 				break;
 				}
-			if(figura.equals("Nozyce") && figura2.equals("Papier")) {
+			if(figure1.equals("scissors") && figure2.equals("paper")) {
 				pkt1++;
-				System.out.println(ANSI_GREEN+"Wygrywasz Nozycami!"+ANSI_RESET +"Wynik : "+pkt1+" : "+pkt2 );
+				System.out.println(ANSI_GREEN+"You Scissors Win!"+ANSI_RESET +" Score : "+pkt1+" : "+pkt2 );
 				Thread.sleep(1700);
 				break;
 				}
-			if(figura.equals("Nozyce") && figura2.equals("Kamien")) {
+			if(figure1.equals("scissors") && figure2.equals("stone")) {
 				pkt2++;
-				System.out.println(ANSI_RED+"Przegrywasz Nozycami!"+ANSI_RESET+" Wynik : "+pkt1+" : "+pkt2);
+				System.out.println(ANSI_RED+"You Scissors Lose!"+ANSI_RESET+" Score : "+pkt1+" : "+pkt2);
 				Thread.sleep(1700);
 				break;
 			}
 			
 	}	
 }
-	public void wyniki() {
+	public void scores() {
 		
-		if (figura.equals("Stop")) {
-			System.out.println("Mecz nie zostal rozstrzygniety - "+ANSI_RED+"Koniec Gry."+ANSI_RESET);
+		if (figure1.equals("Stop")) {
+			System.out.println("The match has not been resolved - "+ANSI_RED+"End Game."+ANSI_RESET);
 		}
 		else {
 		if (pkt1 > pkt2) { 
 			winner = "Gracz 1";
-			wygrana++;
+			win++;
 		}
 		if (pkt2 > pkt1) {
 			winner = "Gracz 2";
 			}
-		System.out.println("Zwyciezca jest: "+ANSI_GREEN+winner+ANSI_RESET+" - "+ANSI_RED+"Koniec Gry."+ANSI_RESET);
+		System.out.println("Winner is: "+ANSI_GREEN+winner+ANSI_RESET+" - "+ANSI_RED+"End Game."+ANSI_RESET);
 		
 		}
 	}
 	public void osiagniecia() throws InterruptedException {
-		if(wygrana == 3) {
-			System.out.println(ANSI_GREEN+"Gratulacje!"+ANSI_RESET+"Odblokowales/as osiagniecie - 'Dloniom Precz' ");
-			System.out.println("Twoj kod bonusowy to: PINK");
+		if(win == 3) {
+			System.out.println(ANSI_GREEN+"Congratulations!"+ANSI_RESET+"Unlocked Achievment - 'Stop hands' ");
+			System.out.println("You'r bonus code is: PINK");
 			achi++;
 			Thread.sleep(4000);
 		}
 	}
 	public void bonusMode() {
-		System.out.println("Podaj kod bonusowy: ");
-		kod = podaj.nextLine();
-		if (kod.equals(bonus)) {
-			System.out.println("Kod prawidlowy. Uruchamian bonus...");
-			bon = true;
+		System.out.println("Please bonus code: ");
+		code = read.nextLine();
+		if (code.equals(bonus)) {
+			System.out.println("Code Agree. Bonus launching...");
+			checkBonus = true;
 		}else
-			System.out.println("Kod Nieprawidlowy");
+			System.out.println("Wrong Code!");
 	}
 	public void clrscr() throws InterruptedException, IOException{
 	    //Clears Screen in java
