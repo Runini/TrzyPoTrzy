@@ -56,13 +56,13 @@ public class BonusGra extends TrzyPoTrzy{
 					
 				bullet = rand.nextInt(101);
 				if (bullet <= 50) {
-					System.out.println("Hit ,point win");
+					System.out.println("Hit!, point win");
 					pkt1++;
 					Thread.sleep(1500);
 					break;
 				}
 				else {
-					System.out.println("Miss, point lose");
+					System.out.println("Miss!, point lose");
 					if (pkt1 != 0) {
 					pkt1--;
 					pkt2++;
@@ -89,20 +89,6 @@ public class BonusGra extends TrzyPoTrzy{
 				Thread.sleep(1700);
 				break;
 				}
-			/* if(figura.equals("Kamien") && figura2.equals("Kamien")) {
-				System.out.println("TAKIE SAME FIGURY");
-				Thread.sleep(700);
-				System.out.println("Wynik : "+pkt1+" : "+pkt2);
-				Thread.sleep(1700);
-				break;
-				}
-			if(figura.equals("Nozyce") && figura2.equals("Nozyce")) {
-				System.out.println("TAKIE SAME FIGURY");
-				Thread.sleep(700);
-				System.out.println("Wynik : "+pkt1+" : "+pkt2);
-				Thread.sleep(1700);	
-				break;
-				}*/
 			if(figure1.equals("paper") && figure2.equals("scissors")) {
 				pkt2++;
 				System.out.println("You Paper Lose! Score : "+pkt1+" : "+pkt2);

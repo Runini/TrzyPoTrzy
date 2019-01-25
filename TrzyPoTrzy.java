@@ -44,15 +44,12 @@ public class TrzyPoTrzy {
 		System.out.println(ANSI_GREEN+"Player 1: "+pkt1+" pkt."+ANSI_RESET+ANSI_RED+"\t\t\t\t\t\t\t Player 2: "+pkt2+" pkt"+ANSI_RESET);
 		
 	}
-	public void readFigure() throws InterruptedException {  //funkcja pobieraja figure od gracza
+	public void readFigure() throws InterruptedException {  //read figure to player one
 		
 		do {
 		System.out.println("You can choice 1 of 3 figures: scissors / paper / stone");
 		Thread.sleep(800);
 		figure1 = read.nextLine();
-		//podaj.close();
-		//Thread.sleep(300);
-		//System.out.println("Podales: "+figure1);
 		if(!figure1.equals("paper") && !figure1.equals("stone")&&
 				!figure1.equals("scissors")){
 			if(figure1.equals("Stop")) {
@@ -70,7 +67,7 @@ public class TrzyPoTrzy {
 	}
 	
 	public void game() throws InterruptedException {  // game function
-		Random losuj = new Random();
+		Random rand = new Random();
 		while(pkt1 < 3 && pkt2 < 3){ //we can play to 3 points on one player
 			if (figure1.equals("Stop")) {
 				break;
@@ -81,7 +78,7 @@ public class TrzyPoTrzy {
 			System.out.print("by ");
 				Thread.sleep(700);
 			System.out.println("Three ");
-			botFigure = losuj.nextInt(3); //random bot figure
+			botFigure = rand.nextInt(3); //random bot figure
 			botFigure++;
 			if (botFigure == 1) 
 				figure2 = "paper";
@@ -92,7 +89,7 @@ public class TrzyPoTrzy {
 			Thread.sleep(700);
 			System.out.println("Enemy choose: "+ANSI_PURPLE+figure2+ANSI_RESET);
 			Thread.sleep(700);
-			
+			// game conditions
 			if(figure1.equals("paper") && figure2.equals("stone")) {
 				pkt1++;
 				System.out.println(ANSI_GREEN+"You Paper Win! "+ANSI_RESET+"Score : "+pkt1+" : "+pkt2);
@@ -106,20 +103,6 @@ public class TrzyPoTrzy {
 				Thread.sleep(1700);
 				break;
 				}
-			/*if(figura.equals("Kamien") && figura2.equals("Kamien")) {
-				System.out.println(ANSI_BLUE+"TAKIE SAME FIGURY"+ANSI_RESET);
-				Thread.sleep(700);
-				System.out.println("Wynik : "+pkt1+" : "+pkt2);
-				Thread.sleep(1700);
-				break;
-				}
-			if(figura.equals("Nozyce") && figura2.equals("Nozyce")) {
-				System.out.println(ANSI_BLUE+"TAKIE SAME FIGURY"+ANSI_RESET);
-				Thread.sleep(700);
-				System.out.println("Wynik : "+pkt1+" : "+pkt2);
-				Thread.sleep(1700);	
-				break;
-				}*/
 			if(figure1.equals("paper") && figure2.equals("scissors")) {
 				pkt2++;
 				System.out.println(ANSI_RED+"You Paper Lose!"+ANSI_RESET+" Score : "+pkt1+" : "+pkt2);

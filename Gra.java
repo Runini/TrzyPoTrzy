@@ -11,9 +11,9 @@ public class Gra {
 
 	public static void main(String[] args) throws InterruptedException, IOException {
 		boolean gameover = false;
-		boolean men = false;   //zmienna do petli
-		boolean men2 = false;  //zmienna do petli
-		int menu = -1; // zmienna menu do switcha
+		boolean men = false;   //loop variable
+		boolean men2 = false;  //loop variable
+		int menu = -1; // menu digit to switch
 		Scanner odczyt = new Scanner(System.in);
 		TrzyPoTrzy newPlayer = new TrzyPoTrzy();
 		BonusGra bonusPlayer = new BonusGra();
@@ -42,7 +42,7 @@ public class Gra {
 		men2 = menu == -1;
 		}
 		  switch(menu){
-			case 1: 
+			case 1:  // normal game
 				newPlayer.printScore();
 				while (gameover == false){
 					newPlayer.printTurn();
@@ -65,7 +65,7 @@ public class Gra {
 					newPlayer.turn = 1;
 					newPlayer.clrscr();
 					break;
-			case 2:
+			case 2: // scores
 				System.out.println("You wins: "+newPlayer.win);
 				System.out.println("Achievment unlocked: "+newPlayer.achi);
 				if(newPlayer.achi >= 1)
@@ -86,7 +86,7 @@ public class Gra {
 				gameover = false;
 				newPlayer.clrscr();
 				break;
-			case 3:
+			case 3: //bonus mode 
 				bonusPlayer.bonusMode();
 				Thread.sleep(1500);
 				bonusPlayer.clrscr();
@@ -96,13 +96,10 @@ public class Gra {
 					bonusPlayer.printTurn();
 					bonusPlayer.readFigure();
 					bonusPlayer.bonusMap();
-					//g.clrscr();
 					bonusPlayer.printScore();
 				if (bonusPlayer.pkt1 == 5 || bonusPlayer.pkt2 == 5 || bonusPlayer.figure1.equals("Stop")){
 					gameover = true;
-					
-					
-				}
+					}
 				}
 				bonusPlayer.scores();
 				Thread.sleep(3000);
@@ -115,7 +112,7 @@ public class Gra {
 				bonusPlayer.clrscr();
 				}
 				break;
-			case 4:
+			case 4: //exit
 				System.out.println("End");
 				men = true;
 				break;
@@ -123,7 +120,7 @@ public class Gra {
 				System.out.println("Wrong Number");
 			} // end switch
 		  men2 = false;
-		} // end petla men
+		} // end loop men
 		} 
 		
 	}
